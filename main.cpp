@@ -6,26 +6,27 @@
 
 int main() {
     
-    std::string tmdFile("C:/Users/Public/Documents/GelSight/Scans/japanese-coin.tmd");
+    std::string tmdFile("data/japanese-coin.tmd");
 
     HeightMapTmd hm(tmdFile);
 
     TmdInfo metadata = hm.GetMetadata();
-    auto matImage = hm.GetHeightMap();
+    auto matImg = hm.GetHeightMap();
 
-    if (matImage.empty()) {
+    if (matImg.empty()) {
         std::cout << "Couldn't load the image." << std::endl;
         std::system("pause");  
         return -1;
     }
 
-    cv::Mat dispImg;
     double minVal, maxVal;
-    cv::minMaxIdx(matImage, &minVal, &maxVal);
+    cv::minMaxIdx(matImg, &minVal, &maxVal);
     std::cout << "min depth = " << minVal <<  " mm, max depth = " << maxVal << " mm" << std::endl;
-    cv::convertScaleAbs(matImage, dispImg, 255/maxVal);
+    cv::Mat dispImg;
+    cv::convertScaleAbs(matImg - minVal, dispImg, 255.0 / (maxVal-minVal));
+
     cv::Mat imgColor;
-    cv::applyColorMap(dispImg, imgColor, cv::COLORMAP_TURBO);
+    cv::applyColorMap(dispImg, imgColor, cv::COLORMAP_PARULA);
 
     // use cv::WINDOW_FREERATIO so it fits and can be resized
     cv::namedWindow("HeightMap", cv::WINDOW_FREERATIO);
