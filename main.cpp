@@ -21,7 +21,11 @@ int main() {
 
     double minVal, maxVal;
     cv::minMaxIdx(matImg, &minVal, &maxVal);
-    std::cout << "min depth = " << minVal <<  " mm, max depth = " << maxVal << " mm" << std::endl;
+    std::cout << "loaded    :" << tmdFile << std::endl;
+    std::cout << "size      : " << matImg.cols << " x " << matImg.rows << " pixels" << std::endl;
+    std::cout << "resolution: " << metadata.mmpp << " millimeters-per-pixel" << std::endl;
+    std::cout << "min depth : " << minVal << " mm" << std::endl;
+    std::cout << "max depth : " << maxVal << " mm" << std::endl;
     cv::Mat dispImg;
     cv::convertScaleAbs(matImg - minVal, dispImg, 255.0 / (maxVal-minVal));
 

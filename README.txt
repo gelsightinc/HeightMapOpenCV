@@ -10,3 +10,14 @@ This demo requires OpenCV (https://opencv.org/) and was tested using the release
 
 (3) Build and run
 
+
+Outputs
+-------
+
+The demo should show the 3D heightmap in a window and print information to the console:
+
+loaded    :data/japanese-coin.tmd
+size      : 3162 x 3189 pixels
+resolution: 0.00878483 millimeters-per-pixel
+min depth : -0.35 mm
+max depth : 0.480618 mm
